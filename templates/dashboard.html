@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ session.username }}!</p>
+    <a href="{{ url_for('create') }}">Create Post</a> | 
+    <a href="{{ url_for('logout') }}">Logout</a> | 
+    <a href="{{ url_for('index') }}">Public Posts</a>
+    <h2>{% if admin %}All Posts{% else %}Your Posts{% endif %}</h2>
+    {% for post in posts %}
+        <div class="post">
+            <p>
+                <a href="{{ url_for('show_post', post_id=post.id) }}">
+                    {{ post.content }}
+                </a>
+            </p>
+            <strong>{{ post.username }}</strong> ({{ post.created_at }}) 
+            {% if post.is_public %}[Public]{% else %}[Private]{% endif %}<br>
+        </div>
+        <hr>
+    {% else %}
+        <p>No posts found.</p>
+    {% endfor %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post {{ post.id }}</title>
+</head>
+<body>
+    <h1>Post #{{ post.id }}</h1>
+    <p><strong>User:</strong> {{ post.username }}</p>
+    <p><strong>Content:</strong> {{ post.content }}</p>
+    <p><strong>Public:</strong> {{ 'Yes' if post.is_public else 'No' }}</p>
+    <p><strong>Created at:</strong> {{ post.created_at }}</p>
+    {% if session.get('username') %}
+        <p>Logged in as {{ session.get('username') }}</p>
+    {% endif %}
+    <a href="/">Back to home</a>
+</body>
+</html>
